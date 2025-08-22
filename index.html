@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Devrim Daşkıran | Resmî Web Sitesi</title>
+  <meta name="description" content="Devrim Daşkıran'ın kişisel web sitesi. Hakkımda, fotoğrafım, iletişim ve sosyal bağlantılarım." />
+  <link rel="canonical" href="https://example.com/" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Devrim Daşkıran" />
+  <meta property="og:description" content="Devrim Daşkıran'ın kişisel web sitesi." />
+  <meta property="og:image" content="/images/devrim-daskiran.jpg" />
+  <meta property="og:url" content="https://example.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.ico" />
+
+  <style>
+    :root{
+      --bg:#0b0c10; --card:#111317; --muted:#9aa3af; --fg:#e5e7eb; --acc:#3b82f6; --ring:#60a5fa;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--fg); line-height:1.6}
+    .container{max-width:960px; margin:0 auto; padding:24px}
+    header{display:flex; align-items:center; gap:24px; padding:28px; background:linear-gradient(180deg,rgba(59,130,246,.2),transparent)}
+    .avatar{width:140px; height:140px; border-radius:24px; object-fit:cover; border:2px solid rgba(255,255,255,.08); box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    h1{font-size:clamp(28px,4vw,40px); margin:0}
+    .tag{display:inline-block; padding:6px 10px; border:1px solid rgba(255,255,255,.12); border-radius:999px; font-size:14px; color:var(--muted)}
+    .grid{display:grid; grid-template-columns:1fr; gap:18px; margin-top:28px}
+    @media(min-width:800px){ .grid{grid-template-columns:1.2fr .8fr} }
+    .card{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:20px; padding:22px; box-shadow:0 8px 24px rgba(0,0,0,.25)}
+    .card h2{margin:0 0 10px; font-size:20px}
+    a.button{display:inline-block; padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.14); text-decoration:none; color:var(--fg)}
+    a.button:hover{border-color:var(--ring); box-shadow:0 0 0 4px rgba(96,165,250,.25)}
+    .links{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px}
+    footer{opacity:.7; font-size:14px; margin-top:30px; text-align:center}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="/images/devrim-daskiran.jpg" width="560" height="560" alt="Devrim Daşkıran'ın portre fotoğrafı" class="avatar" />
+      <div>
+        <h1>Devrim Daşkıran</h1>
+        <div class="tag">Üniversite Öğrencisi • Çanakkale</div>
+        <p class="muted">18 yaşında Devrimci bir ruha sahip üniversite öğrencisiyim.</p>
+        <div class="links">
+          <a class="button" href="#projeler">Projeler</a>
+          <a class="button" href="#iletisim">İletişim</a>
+          <a class="button" href="https://www.linkedin.com/in/devrim-d-065723332?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" rel="me noopener" target="_blank">LinkedIn</a>
+          <a class="button" href="https://www.instagram.com/devrimdaskiran?igsh=MXJ2dHV2ZzF3Mmd0aA==" rel="me noopener" target="_blank">Instagram</a>
+          <a class="button" href="https://x.com/Dskrn_Devrim?t=vxVLv420SV13lyst6vx4yQ&s=09" rel="me noopener" target="_blank">X (Twitter)</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section id="hakkimda" class="card">
+        <h2>Hakkımda</h2>
+        <p>18 yaşında Devrimci bir ruha sahip üniversite öğrencisiyim. Elektrik‑Elektronik ve mekatronik alanlarına ilgi duyuyor, robotik ve otomasyon projeleri geliştiriyorum.</p>
+      </section>
+
+      <aside class="card">
+        <h2>Hızlı Bilgiler</h2>
+        <ul>
+          <li>Konum: Çanakkale / Türkiye</li>
+          <li>E-posta: <a href="mailto:devrimdaskiran@gmail.com">devrimdaskiran@gmail.com</a></li>
+          <li>Doğum günü: 1 Ocak</li>
+        </ul>
+      </aside>
+
+      <section id="projeler" class="card" style="grid-column: 1 / -1;">
+        <h2>Projeler</h2>
+        <ul>
+          <li><strong>Akıllı Güneş Takip Paneli</strong> — Güneş ışığını izleyerek maksimum verim sağlayan panel sistemi.</li>
+          <li><strong>Robotik Köpek</strong> — ESP32 + PCA9685 + 8× MG90S servo ile Wi‑Fi kontrollü dört ayaklı robot.</li>
+        </ul>
+      </section>
+
+      <section id="iletisim" class="card" style="grid-column: 1 / -1;">
+        <h2>İletişim</h2>
+        <p>İş birliği ve proje teklifleri için e‑posta gönderebilir ya da sosyal medya hesaplarımdan ulaşabilirsin.</p>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="yil"></span> Devrim Daşkıran — Tüm hakları saklıdır.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('yil').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
