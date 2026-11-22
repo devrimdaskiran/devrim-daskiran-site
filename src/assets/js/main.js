@@ -85,11 +85,16 @@
 
       if (form.dataset.mode === "endpoint") {
         try {
+          const btn = form.querySelector('[type="submit"]');
+          btn.disabled = true;
           const res = await fetch(form.action, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) });
-          if (!res.ok) throw new Error();
+          btn.disabled = false;
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || String(data.success) === "false") throw new Error(data.message || "");
           form.reset();
           say("Teşekkürler! Mesajınız iletildi.", true);
         } catch {
+          form.querySelector('[type="submit"]').disabled = false;
           say("Mesaj gönderilemedi. Lütfen doğrudan e-posta ile ulaşın: " + form.dataset.email, false);
         }
         return;

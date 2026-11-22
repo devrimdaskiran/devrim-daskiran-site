@@ -79,6 +79,8 @@ Her şey **`src/data/profile.js`** dosyasındadır. Bölümler:
 | `profile` | Ad, unvan, kısa tanıtım, Hakkımda paragrafları, ilgi alanları, fotoğraf |
 | `profile.private` | Doğum tarihi ve telefon — **varsayılan olarak gizli** |
 | `contact` | E-posta, GitHub, LinkedIn, Instagram, X, form servisi |
+| `experience` | Staj / iş deneyimleri |
+| `certificates` | Kurslar ve sertifikalar |
 | `education` | Eğitim bilgileri (okul, program, durum, tarihler) |
 | `skills` | Beceri kategorileri ve seviyeleri |
 | `projects` | Projeler |
@@ -114,6 +116,7 @@ Fotoğrafı kare kırpar, `public/images/profil-640/320` (WebP + JPG) dosyaları
   slug: "akilli-sera",                 // adres: /projeler/akilli-sera/ (küçük harf, rakam, tire)
   title: "Akıllı Sera",
   category: "elektronik",              // oyun | elektronik | cad | yazilim
+  context: "Üniversite Projesi",       // Lise / Üniversite / Bitirme / Kişisel Proje veya ""
   status: "Tamamlandı",                // veya "Geliştirme aşamasında", "Prototip", ""
   summary: "Kartta görünen tek cümlelik açıklama.",
   technologies: ["Arduino", "DHT22"],
@@ -141,10 +144,11 @@ CV'nin hem web sayfası (`/cv/`) hem PDF'i **`profile.js` içeriğinden otomatik
 
 ## İletişim formu
 
-GitHub Pages yalnızca statik dosya sunar; sunucu tarafında e-posta gönderemez. Bu yüzden form iki modda çalışır:
+GitHub Pages yalnızca statik dosya sunar; sunucu tarafında e-posta gönderemez. Bu yüzden form, üyelik gerektirmeyen **[FormSubmit](https://formsubmit.co)** servisini kullanır (`contact.formEndpoint`). Mesajlar doğrudan `devrimdaskiran@gmail.com` adresine gelir.
 
-- **Varsayılan (`formEndpoint: ""`):** "Gönder"e basıldığında ziyaretçinin e-posta uygulamasında hazır bir e-posta açılır. Sitede bu durum açıkça yazar.
-- **Doğrudan gönderim:** [Formspree](https://formspree.io) (ücretsiz plan var) hesabı aç, form oluştur, verilen adresi `contact.formEndpoint` alanına yaz (ör. `"https://formspree.io/f/abcdwxyz"`). Mesajlar e-postana gelir.
+⚠️ **Bir kerelik etkinleştirme:** Site yayınlandıktan sonra formdan kendine bir deneme mesajı gönder. FormSubmit e-postana "Confirm your email / Activate form" konulu bir e-posta yollar; içindeki bağlantıya tıkla. Bundan sonra gelen mesajlar doğrudan e-postana düşer. (Gelmezse Spam klasörüne bak.)
+
+Formu kapatmak istersen `formEndpoint: ""` yap: bu durumda "Gönder", ziyaretçinin e-posta uygulamasında hazır bir e-posta açar.
 
 ## GitHub Pages'te yayınlama ve GitHub Actions
 

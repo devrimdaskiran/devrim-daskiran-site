@@ -181,13 +181,22 @@ main:focus { outline: none; }
 .tl-item { position: relative; padding-left: 64px; }
 .tl-dot { position: absolute; left: 0; top: 18px; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: var(--accent-hi); background: var(--surface-2); border: 1px solid var(--line-strong); }
 .tl-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
-.tl-top h3 { font-size: 1.25rem; margin: 0; }
+.tl-top h3, .tl-top h4 { font-size: 1.2rem; margin: 0; }
 .tl-school { font-weight: 600; color: #c9d3e6; margin: 6px 0 2px; }
 .tl-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .92rem; color: var(--muted); margin-bottom: 10px; }
 .tl-meta:empty { display: none; }
 .tl-degree { font-size: .95rem; color: #c9d3e6; }
 .tl-card > p:last-child { margin-bottom: 0; color: var(--muted); }
 .badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; font-size: .8rem; font-weight: 600; color: var(--cyan); background: rgba(34, 211, 238, .1); border: 1px solid rgba(34, 211, 238, .25); white-space: nowrap; }
+
+.sub-title-lg { font-size: 1.35rem; margin: 56px 0 20px; }
+.cert-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.cert { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+.cert .skill-icon { width: 36px; height: 36px; }
+.cert .skill-icon .icon { width: 18px; height: 18px; }
+.cert strong { display: block; font-size: .95rem; font-weight: 600; line-height: 1.35; }
+.cert span span { font-size: .85rem; color: var(--muted); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* Skills */
 .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -314,6 +323,7 @@ html:not(.js) .filters { display: none; }
 .cv-org { color: #334155; font-size: .93rem; margin-bottom: 2px; }
 .cv-entry p { margin-bottom: 2px; }
 .cv-skills { list-style: none; display: grid; gap: 4px; }
+.cv-inline { list-style: none; display: flex; flex-wrap: wrap; gap: 2px 20px; }
 .cv-sheet p:last-child { margin-bottom: 0; }
 
 /* ---------- Reveal animasyonu (hafif) ---------- */
@@ -326,19 +336,23 @@ html:not(.js) .filters { display: none; }
 }
 
 /* ---------- Yazdırma (CV) ---------- */
-@page { size: A4; margin: 12mm 14mm; }
+@page { size: A4; margin: 10mm 13mm; }
 @media print {
   :root { color-scheme: light; }
   html, body { background: #fff !important; color: #000; font-size: 10pt; }
   .site-header, .site-footer, .no-print, .skip-link { display: none !important; }
   .section { padding: 0 !important; }
   .container { max-width: none; padding: 0; }
-  .cv-sheet { box-shadow: none; border-radius: 0; padding: 0; font-size: 10pt; line-height: 1.42; }
-  .cv-sheet section { margin-top: 12px; }
+  .cv-sheet { box-shadow: none; border-radius: 0; padding: 0; font-size: 10pt; line-height: 1.36; }
+  .cv-sheet section { margin-top: 7px; }
   .cv-sheet h2 { margin-bottom: 6px; }
-  .cv-entry { margin-bottom: 7px; }
-  .cv-header { padding-bottom: 10px; }
-  .cv-sheet h1 { font-size: 20pt; }
+  .cv-entry { margin-bottom: 4px; }
+  .cv-entry p { margin-bottom: 0; }
+  .cv-sheet h2 { margin-bottom: 4px; padding-bottom: 2px; }
+  .cv-skills { gap: 1px; }
+  .cv-header { padding-bottom: 7px; }
+  .cv-sheet h1 { font-size: 18pt; margin-bottom: 0; }
+  .cv-title { margin-bottom: 4px; }
   .cv-entry, .cv-sheet h2 { break-inside: avoid; }
   .cv-sheet h2 { break-after: avoid; }
   .cv-sheet a { color: #1d4ed8; text-decoration: none; }

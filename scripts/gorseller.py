@@ -17,7 +17,7 @@ IMG = PUB / "images"
 
 NAME = "Devrim Daşkıran"
 TITLE = "Mekatronik Teknikeri"
-SUB = "Elektronik ve Otomasyon  ·  Yazılım Geliştirme"
+SUB = "Elektrik-Elektronik Teknisyeni  ·  Otomasyon ve Robotik"
 
 BG = (7, 11, 20)
 ACCENT = (59, 130, 246)

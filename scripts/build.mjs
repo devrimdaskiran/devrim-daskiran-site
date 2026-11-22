@@ -11,6 +11,8 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
 const data = await import(pathToFileURL(path.join(ROOT, "src/data/profile.js")).href + `?t=${Date.now()}`);
 const { site, profile, contact, education, skills, projects, projectCategories } = data;
+const experience = data.experience || [];
+const certificates = data.certificates || [];
 
 const YEAR = new Date().getFullYear();
 const TODAY = new Date().toISOString().slice(0, 10);
@@ -23,7 +25,7 @@ const abs = (p = "") => SITE_URL + p.replace(/^\//, "");
 const has = (v) => (Array.isArray(v) ? v.length > 0 : Boolean(v && String(v).trim()));
 const catName = (id) => projectCategories.find((c) => c.id === id)?.name ?? id;
 const levelClass = (lvl) =>
-  ({ "İleri düzey": "lvl-4", "Orta düzey": "lvl-3", "Temel düzey": "lvl-2", Geliştiriyorum: "lvl-1" })[lvl] || "";
+  ({ "İleri düzey": "lvl-4", "Orta düzey": "lvl-3", İyi: "lvl-3", "Temel düzey": "lvl-2", Geliştiriyorum: "lvl-1" })[lvl] || "";
 
 function validate() {
   const errors = [];
@@ -155,8 +157,8 @@ function footer(base) {
 // ---------- JSON-LD ----------
 function personLd() {
   const alumni = education
-    .filter((e) => has(e.school) && e.school !== "Meslek Lisesi")
-    .map((e) => ({ "@type": "CollegeOrUniversity", name: e.school }));
+    .filter((e) => has(e.school) && e.status === "Mezun")
+    .map((e) => ({ "@type": /lise/i.test(e.school) ? "HighSchool" : "CollegeOrUniversity", name: e.school + (has(e.unit) ? " " + e.unit : "") }));
   const o = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -167,7 +169,7 @@ function personLd() {
     jobTitle: profile.title,
     description: profile.intro,
     nationality: { "@type": "Country", name: "Türkiye" },
-    address: { "@type": "PostalAddress", addressCountry: "TR" },
+    address: { "@type": "PostalAddress", addressLocality: profile.location.split(",")[0], addressCountry: "TR" },
     knowsAbout: profile.interests,
     alumniOf: alumni,
     hasCredential: education
@@ -230,7 +232,8 @@ function aboutSection() {
   const facts = [
     ["Unvan", profile.title],
     ["Odak", "Elektronik · Otomasyon · Yazılım"],
-    ["Eğitim", "Mekatronik (ÇOMÜ) · Bilgisayar Programcılığı (Anadolu Üniv.)"],
+    ["Eğitim", "Mekatronik — ÇOMÜ Çan MYO (Mezun)"],
+    ["Deneyim", `${experience.length} dönem endüstriyel staj`],
     ["Konum", profile.location],
   ];
   return `<section class="section" id="hakkimda" aria-labelledby="hakkimda-title">
@@ -265,7 +268,7 @@ function educationSection() {
         </div>
         <p class="tl-school">${esc(e.school)}${has(e.unit) ? ` · ${esc(e.unit)}` : ""}</p>
         <p class="tl-meta">${meta}</p>
-        ${has(e.degree) ? `<p class="tl-degree">Mesleki unvan: <strong>${esc(e.degree)}</strong></p>` : ""}
+        ${has(e.degree) ? `<p class="tl-degree">Mesleki unvan: <strong>${esc(e.degree)}</strong>${has(e.gpa) ? ` · Not ortalaması: <strong>${esc(e.gpa)}</strong>` : ""}</p>` : ""}
         ${has(e.description) ? `<p>${esc(e.description)}</p>` : ""}
       </article>
     </li>`;
@@ -273,10 +276,37 @@ function educationSection() {
     .join("");
   return `<section class="section section-alt" id="egitim" aria-labelledby="egitim-title">
   <div class="container">
-    <div class="section-head"><p class="kicker">02 · Eğitim</p><h2 id="egitim-title">Eğitim geçmişim</h2></div>
+    <div class="section-head"><p class="kicker">02 · Eğitim</p><h2 id="egitim-title">Eğitim ve deneyim</h2></div>
     <ol class="timeline">${items}</ol>
+    ${experienceBlock()}
+    ${certificatesBlock()}
   </div>
 </section>`;
+}
+
+function experienceBlock() {
+  if (!experience.length) return "";
+  const items = experience
+    .map(
+      (x) => `<li class="tl-item">
+      <span class="tl-dot" aria-hidden="true">${icons.gear}</span>
+      <article class="card tl-card">
+        <div class="tl-top"><h4>${esc(x.role)}</h4>${has(x.start) ? `<span class="badge">${esc([x.start, x.end].filter(has).join(" – "))}</span>` : ""}</div>
+        <p class="tl-school">${esc(x.company)}${has(x.location) ? ` · ${esc(x.location)}` : ""}</p>
+        ${has(x.description) ? `<p>${esc(x.description)}</p>` : ""}
+      </article>
+    </li>`
+    )
+    .join("");
+  return `<h3 class="sub-title sub-title-lg" id="deneyim">Staj deneyimi</h3><ol class="timeline">${items}</ol>`;
+}
+
+function certificatesBlock() {
+  if (!certificates.length) return "";
+  return `<h3 class="sub-title sub-title-lg" id="sertifikalar">Kurslar ve sertifikalar</h3>
+  <ul class="cert-grid">${certificates
+    .map((c) => `<li class="card cert"><span class="skill-icon">${icons.file}</span><span><strong>${esc(c.name)}</strong>${has(c.year) ? `<span>${esc(c.year)}</span>` : ""}</span></li>`)
+    .join("")}</ul>`;
 }
 
 function skillsSection() {
@@ -303,7 +333,7 @@ function projectCard(p) {
   return `<article class="card project-card" data-category="${esc(p.category)}">
   <a class="card-media-link" href="{{base}}projeler/${esc(p.slug)}/" tabindex="-1" aria-hidden="true">${projectArt(p)}</a>
   <div class="project-body">
-    <div class="project-meta"><span class="cat">${esc(catName(p.category))}</span>${has(p.status) ? `<span class="badge">${esc(p.status)}</span>` : ""}</div>
+    <div class="project-meta"><span class="cat">${esc(p.context || catName(p.category))}</span>${has(p.status) ? `<span class="badge">${esc(p.status)}</span>` : ""}</div>
     <h3><a href="{{base}}projeler/${esc(p.slug)}/">${esc(p.title)}</a></h3>
     <p>${esc(p.summary)}</p>
     ${has(p.technologies) ? `<ul class="tech" aria-label="Kullanılan teknolojiler">${p.technologies.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
@@ -390,6 +420,9 @@ function contactSection() {
         ${other.length ? `<div class="social-row">${other.map((l) => `<a class="btn btn-ghost btn-sm" href="${esc(l.url)}" target="_blank" rel="me noopener">${icons[l.key]}<span>${l.label}</span></a>`).join("")}</div>` : ""}
       </div>
       <form class="card contact-form" id="contact-form" ${has(contact.formEndpoint) ? `action="${esc(contact.formEndpoint)}" method="POST" data-mode="endpoint"` : `action="mailto:${esc(contact.email)}" method="post" enctype="text/plain" data-mode="mailto"`} data-email="${esc(contact.email)}" novalidate>
+        <input type="hidden" name="_subject" value="Web sitesi üzerinden yeni mesaj">
+        <input type="hidden" name="_template" value="table">
+        <div class="hp" aria-hidden="true"><label for="f-honey">Bu alanı boş bırakın</label><input id="f-honey" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
         <div class="field"><label for="f-name">Adınız</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
         <div class="field"><label for="f-email">E-posta adresiniz</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
         <div class="field"><label for="f-msg">Mesajınız</label><textarea id="f-msg" name="message" rows="5" required></textarea></div>
@@ -422,7 +455,7 @@ function projectPage(p) {
   const body = `<article class="section project-page">
   <div class="container narrow">
     <nav class="breadcrumb" aria-label="Sayfa yolu"><a href="${base}">Ana Sayfa</a><span aria-hidden="true">/</span><a href="${base}#projeler">Projeler</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.title)}</span></nav>
-    <div class="project-meta"><span class="cat">${esc(catName(p.category))}</span>${has(p.status) ? `<span class="badge">${esc(p.status)}</span>` : ""}</div>
+    <div class="project-meta"><span class="cat">${esc(catName(p.category))}${has(p.context) ? " · " + esc(p.context) : ""}</span>${has(p.status) ? `<span class="badge">${esc(p.status)}</span>` : ""}</div>
     <h1>${esc(p.title)}</h1>
     <p class="lead">${esc(p.summary)}</p>
     ${projectArt(p, "project-hero-media")}
@@ -469,22 +502,47 @@ function cvPage() {
       const dates = [e.start, e.end].filter(has).join(" – ");
       return `<div class="cv-entry">
         <div class="cv-entry-head"><h3>${esc(e.program)}${has(e.degree) ? ` — ${esc(e.degree)}` : ""}</h3>${has(dates) ? `<span>${esc(dates)}</span>` : ""}</div>
-        <p class="cv-org">${esc(e.school)}${has(e.unit) ? `, ${esc(e.unit)}` : ""}${has(e.type) ? ` · ${esc(e.type)}` : ""}${has(e.status) ? ` · ${esc(e.status)}` : ""}</p>
-        ${has(e.description) ? `<p>${esc(e.description)}</p>` : ""}
+        <p class="cv-org">${esc(e.school)}${has(e.unit) ? `, ${esc(e.unit)}` : ""}${has(e.type) ? ` · ${esc(e.type)}` : ""}${has(e.status) ? ` · ${esc(e.status)}` : ""}${has(e.gpa) ? ` · Not ortalaması: ${esc(e.gpa)}` : ""}</p>
       </div>`;
     })
     .join("");
+  // CV'de aynı aracın iki kategoride tekrar etmesini önle
+  const seen = new Set();
   const sk = skills
-    .map((s) => `<li><strong>${esc(s.category)}:</strong> ${s.items.map((i) => esc(i.name) + (has(i.level) ? ` (${esc(i.level)})` : "")).join(", ")}</li>`)
+    .map((s) => {
+      const items = s.items.filter((i) => {
+        const key = i.name.replace(/\s*\(.*\)/, "").toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+      return items.length ? `<li><strong>${esc(s.category)}:</strong> ${items.map((i) => esc(i.name) + (has(i.level) ? ` (${esc(i.level)})` : "")).join(", ")}</li>` : "";
+    })
     .join("");
   const pr = projects
     .map(
       (p) => `<div class="cv-entry">
-        <div class="cv-entry-head"><h3>${esc(p.title)}</h3>${has(p.status) ? `<span>${esc(p.status)}</span>` : ""}</div>
-        <p>${esc(p.summary)}${has(p.technologies) ? ` <em>Teknolojiler: ${p.technologies.map(esc).join(", ")}.</em>` : ""}</p>
+        <div class="cv-entry-head"><h3>${esc(p.title)}${has(p.context) ? ` | ${esc(p.context)}` : ""}</h3>${has(p.status) ? `<span>${esc(p.status)}</span>` : ""}</div>
+        <p>${esc(p.summary)}</p>
       </div>`
     )
     .join("");
+  const exp = experience
+    .map(
+      (x) => `<div class="cv-entry">
+        <div class="cv-entry-head"><h3>${esc(x.role)}</h3><span>${esc([x.start, x.end].filter(has).join(" – "))}</span></div>
+        <p class="cv-org">${esc(x.company)}${has(x.location) ? ` · ${esc(x.location)}` : ""}</p>
+        ${has(x.description) ? `<p>${esc(x.description)}</p>` : ""}
+      </div>`
+    )
+    .join("");
+  const certs = certificates.map((c) => esc(c.name) + (has(c.year) ? ` (${esc(c.year)})` : "")).join(" · ");
+  const extraLines = [
+    ...(profile.languages || []).map((l) => `<li><strong>${esc(l.name)}:</strong> ${esc(l.level)}</li>`),
+    has(profile.extra?.drivingLicense) && `<li><strong>Sürücü belgesi:</strong> ${esc(profile.extra.drivingLicense)}</li>`,
+    has(profile.extra?.military) && `<li><strong>Askerlik:</strong> ${esc(profile.extra.military)}</li>`,
+    has(profile.targetPositions) && `<li><strong>Hedef pozisyonlar:</strong> ${profile.targetPositions.map(esc).join(" · ")}</li>`,
+  ].filter(Boolean).join("");
   const contactLines = [
     has(contact.email) && `<li>E-posta: <a href="mailto:${esc(contact.email)}">${esc(contact.email)}</a></li>`,
     profile.private.showPhone && has(profile.private.phone) && `<li>Telefon: ${esc(profile.private.phone)}</li>`,
@@ -507,14 +565,16 @@ function cvPage() {
     <article class="cv-sheet" aria-labelledby="cv-name">
       <header class="cv-header">
         <h1 id="cv-name">${esc(profile.name)}</h1>
-        <p class="cv-title">${esc(profile.headline.join(" | "))}</p>
+        <p class="cv-title">${esc(profile.headline.slice(0, 2).join(" | "))}</p>
         <ul class="cv-contact">${contactLines}</ul>
       </header>
       <section><h2>Profil</h2><p>${esc(profile.intro)}</p></section>
-      <section><h2>Eğitim</h2>${edu}</section>
       <section><h2>Teknik Beceriler</h2><ul class="cv-skills">${sk}</ul></section>
+      ${exp ? `<section><h2>Staj Deneyimi</h2>${exp}</section>` : ""}
       <section><h2>Projeler</h2>${pr}</section>
-      <section><h2>İlgi Alanları</h2><p>${profile.interests.map(esc).join(", ")}.</p></section>
+      <section><h2>Eğitim</h2>${edu}</section>
+      ${certs ? `<section><h2>Kurslar ve Sertifikalar</h2><p>${certs}</p></section>` : ""}
+      ${extraLines ? `<section><h2>Dil ve Ek Bilgiler</h2><ul class="cv-inline">${extraLines}</ul></section>` : ""}
     </article>
   </div>
 </div>`;
