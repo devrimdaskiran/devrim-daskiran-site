@@ -2,7 +2,7 @@
 
 Mekatronik Teknikeri **Devrim Daşkıran**'ın kişisel web sitesi: tanıtım, eğitim, teknik beceriler, proje portfolyosu, CV (web + PDF) ve iletişim.
 
-🌐 Yayın adresi (GitHub Pages etkinleştirildikten sonra): https://devrimdaskiran.github.io/devrim-daskiran-site/
+🌐 Site adresi: https://devrimdaskiran.github.io/
 
 ---
 
@@ -159,7 +159,7 @@ Formu kapatmak istersen `formEndpoint: ""` yap: bu durumda "Gönder", ziyaretçi
 Yayın durumunu depo → **Actions** sekmesinden izleyebilirsin. Elle yeniden yayınlamak için: Actions → "Siteyi yayınla" → **Run workflow**.
 
 ### Daha iyi adres (önerilir)
-- Depo adını **`devrimdaskiran.github.io`** yaparsan site `https://devrimdaskiran.github.io/` adresinde açılır (daha kısa, SEO için daha iyi, `robots.txt` alan adının kökünde çalışır). Ardından `profile.js` → `site.url` değerini buna göre değiştir.
+- Depo adı `devrimdaskiran.github.io` olduğu için site alan adının kökünde (`https://devrimdaskiran.github.io/`) yayınlanır; `robots.txt` ve site haritası Google tarafından doğrudan okunur.
 - Kendi alan adını (ör. `devrimdaskiran.com`) alırsan: `public/CNAME` dosyasına alan adını yaz, Settings → Pages'ten ekle ve `site.url`'i güncelle.
 
 ## SEO ve Google

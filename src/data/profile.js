@@ -10,9 +10,9 @@
 
 export const site = {
   // Sitenin yayınlanacağı tam adres (sonunda / olmalı).
-  // Depo adını "devrimdaskiran.github.io" yaparsan: "https://devrimdaskiran.github.io/"
-  // Kendi alan adını alırsan:                     "https://www.devrimdaskiran.com/"
-  url: "https://devrimdaskiran.github.io/devrim-daskiran-site/",
+  // Depo adı "devrimdaskiran.github.io" olduğu için site alan adının kökünde yayınlanır.
+  // Kendi alan adını alırsan: "https://www.devrimdaskiran.com/" (README → "Daha iyi adres")
+  url: "https://devrimdaskiran.github.io/",
   language: "tr",
   locale: "tr_TR",
   // Google Search Console "HTML etiketi" doğrulama kodu (yalnızca content="..." içindeki değer).
@@ -273,7 +273,7 @@ export const projects = [
     title: "Akıllı Çöp Konteyneri Doluluk ve Yönlendirme Sistemi",
     category: "elektronik",
     context: "Bitirme Projesi",
-    status: "",
+    status: "Tamamlandı",
     summary:
       "Sensörlerle konteyner doluluk oranını ölçüp sunucuya aktaran ve boşaltma ekiplerini doluluk verisine göre yönlendirmeyi amaçlayan sistem.",
     technologies: ["ESP32", "Arduino", "Ultrasonik sensör", "Kızılötesi sensör", "Ağırlık sensörü", "Servo / step motor"],
@@ -292,7 +292,7 @@ export const projects = [
     title: "ROS Tabanlı Akıllı Robot Süpürge",
     category: "elektronik",
     context: "Üniversite Projesi",
-    status: "",
+    status: "Tamamlandı",
     summary: "Raspberry Pi 5, LiDAR ve NEMA 17 step motorlarla geliştirilen, ROS ile haritalama yapan mobil robot platformu.",
     technologies: ["ROS", "Raspberry Pi 5", "LiDAR", "NEMA 17", "RViz"],
     image: "",
