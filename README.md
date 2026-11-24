@@ -144,9 +144,9 @@ CV'nin hem web sayfası (`/cv/`) hem PDF'i **`profile.js` içeriğinden otomatik
 
 ## İletişim formu
 
-GitHub Pages yalnızca statik dosya sunar; sunucu tarafında e-posta gönderemez. Bu yüzden form, üyelik gerektirmeyen **[FormSubmit](https://formsubmit.co)** servisini kullanır (`contact.formEndpoint`). Mesajlar doğrudan `devrimdaskiran@gmail.com` adresine gelir.
+GitHub Pages yalnızca statik dosya sunar; sunucu tarafında e-posta gönderemez. Bu yüzden form **[Web3Forms](https://web3forms.com)** servisini kullanır (`contact.formEndpoint` + `contact.formAccessKey`). Mesajlar doğrudan `devrimdaskiran@gmail.com` adresine gelir. Erişim anahtarı herkese açık olacak şekilde tasarlanmıştır; formu app.web3forms.com üzerinden yönetebilirsin.
 
-⚠️ **Bir kerelik etkinleştirme:** Site yayınlandıktan sonra formdan kendine bir deneme mesajı gönder. FormSubmit e-postana "Confirm your email / Activate form" konulu bir e-posta yollar; içindeki bağlantıya tıkla. Bundan sonra gelen mesajlar doğrudan e-postana düşer. (Gelmezse Spam klasörüne bak.)
+Mesaj gelmezse önce Gmail'in Spam klasörüne bak.
 
 Formu kapatmak istersen `formEndpoint: ""` yap: bu durumda "Gönder", ziyaretçinin e-posta uygulamasında hazır bir e-posta açar.
 

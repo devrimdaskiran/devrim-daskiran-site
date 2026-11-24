@@ -90,10 +90,11 @@ export const contact = {
   x: "https://x.com/Dskrn_Devrim",
   // İletişim formu: GitHub Pages sunucu tarafı kod çalıştıramaz.
   //  • Boş bırakılırsa form, ziyaretçinin e-posta uygulamasında hazır bir e-posta açar.
-  //  • Şu an FormSubmit (https://formsubmit.co) kullanılıyor: üyelik gerektirmez, mesajlar
-  //    doğrudan e-postana gelir. İLK mesajda FormSubmit sana bir onay e-postası gönderir;
-  //    içindeki "Activate" bağlantısına bir kez tıklaman gerekir.
-  formEndpoint: "https://formsubmit.co/ajax/devrimdaskiran@gmail.com",
+  //  • Şu an Web3Forms (https://web3forms.com) kullanılıyor; mesajlar doğrudan
+  //    devrimdaskiran@gmail.com adresine gelir. formAccessKey herkese açık bir anahtardır
+  //    (sayfa kaynağında görünmesi normaldir); app.web3forms.com'dan yönetilir.
+  formEndpoint: "https://api.web3forms.com/submit",
+  formAccessKey: "8911a967-89e9-4e40-889b-909d3f3dca3c",
 };
 
 // ---------------------------------------------------------------------

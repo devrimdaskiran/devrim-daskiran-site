@@ -446,9 +446,10 @@ function contactSection() {
         ${other.length ? `<div class="social-row">${other.map((l) => `<a class="btn btn-ghost btn-sm" href="${esc(l.url)}" target="_blank" rel="me noopener">${icons[l.key]}<span>${l.label}</span></a>`).join("")}</div>` : ""}
       </div>
       <form class="card contact-form" id="contact-form" ${has(contact.formEndpoint) ? `action="${esc(contact.formEndpoint)}" method="POST" data-mode="endpoint"` : `action="mailto:${esc(contact.email)}" method="post" enctype="text/plain" data-mode="mailto"`} data-email="${esc(contact.email)}" novalidate>
-        <input type="hidden" name="_subject" value="Web sitesi üzerinden yeni mesaj">
-        <input type="hidden" name="_template" value="table">
-        <div class="hp" aria-hidden="true"><label for="f-honey">Bu alanı boş bırakın</label><input id="f-honey" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
+        ${has(contact.formAccessKey) ? `<input type="hidden" name="access_key" value="${esc(contact.formAccessKey)}">` : ""}
+        <input type="hidden" name="subject" value="Web sitesi üzerinden yeni mesaj">
+        <input type="hidden" name="from_name" value="devrimdaskiran.github.io">
+        <div class="hp" aria-hidden="true"><label for="f-honey">Bu alanı boş bırakın</label><input id="f-honey" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></div>
         <div class="field"><label for="f-name">Adınız</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
         <div class="field"><label for="f-email">E-posta adresiniz</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
         <div class="field"><label for="f-msg">Mesajınız</label><textarea id="f-msg" name="message" rows="5" required></textarea></div>
