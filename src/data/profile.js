@@ -217,7 +217,7 @@ export const certificates = [
   { name: "Ulaşım Sektöründe Mikro İşletmeler İçin Hijyen Eğitimi (İşimiz Temiz)", issuer: "MEB Hayat Boyu Öğrenme", year: "2026", cv: false },
   { name: "Bilgisayar İşletmenliği", issuer: "GASMEK", year: "", status: "Devam ediyor" },
   { name: "Klavye Teknikleri", issuer: "GASMEK", year: "", status: "Devam ediyor" },
-  { name: "Drone (İHA) Pilot Ehliyeti", issuer: "", year: "", status: "Devam ediyor" },
+  { name: "İHA-1 (Drone) Pilot Ehliyeti", issuer: "SHGM", year: "", status: "Devam ediyor" },
 ];
 
 // ---------------------------------------------------------------------

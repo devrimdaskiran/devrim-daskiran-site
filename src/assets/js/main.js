@@ -90,12 +90,13 @@
           const res = await fetch(form.action, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) });
           btn.disabled = false;
           const data = await res.json().catch(() => ({}));
-          if (!res.ok || String(data.success) === "false") throw new Error(data.message || "");
+          if (!res.ok || String(data.success) === "false") throw new Error(data.message || "HTTP " + res.status);
           form.reset();
           say("Teşekkürler! Mesajınız iletildi.", true);
-        } catch {
+        } catch (err) {
           form.querySelector('[type="submit"]').disabled = false;
-          say("Mesaj gönderilemedi. Lütfen doğrudan e-posta ile ulaşın: " + form.dataset.email, false);
+          console.warn("İletişim formu hatası:", err && err.message);
+          say("Mesaj şu an gönderilemedi. Lütfen doğrudan e-posta ile ulaşın: " + form.dataset.email, false);
         }
         return;
       }
