@@ -76,8 +76,8 @@ export const profile = {
   private: {
     birthDate: "",          // ör. "2006-01-01"
     showBirthDate: false,
-    phone: "",              // telefonunu buraya yazıp showPhone: true yaparsan CV'de görünür
-    showPhone: false,
+    phone: "0 551 065 50 47", // CV'de görünür; gizlemek için showPhone: false yap
+    showPhone: true,
   },
 };
 
@@ -166,16 +166,58 @@ export const experience = [
 // KURSLAR VE SERTİFİKALAR
 // ---------------------------------------------------------------------
 export const certificates = [
-  { name: "ROS ile Robotik Programlama", year: "2026" },
-  { name: "C# Programlama", year: "2026" },
-  { name: "AutoCAD ile 2D Tasarımlar", year: "2025" },
-  { name: "Proteus ile Devre Tasarımı", year: "2025" },
-  { name: "Projelerle Arduino Programlama", year: "2025" },
-  { name: "Temel Elektronik ve Robotiğe Giriş", year: "2025" },
-  { name: "Tinkercad ile Arduino", year: "2025" },
-  { name: "Microsoft Word, Excel, PowerPoint", year: "2024" },
-  { name: "İlk Yardım", year: "2025" },
-  { name: "Afet ve Acil Durum Farkındalık Eğitimi", year: "2025" },
+  // issuer: kurum adı (sitede bu başlık altında gruplanır)
+  // cv: false → yalnızca sitede görünür, CV PDF'ine girmez
+  // status: "Devam ediyor" → devam eden eğitim olarak gösterilir
+  { name: "ROS ile Robotik Programlama", issuer: "BTK Akademi", year: "2026" },
+  { name: "C# Programlama", issuer: "BTK Akademi", year: "2026" },
+  { name: "AutoCAD ile 2D Tasarımlar", issuer: "BTK Akademi", year: "2025" },
+  { name: "Autocad ile 3B Mimari Tasarım", issuer: "BTK Akademi", year: "2025" },
+  { name: "Proteus ile Devre Tasarımı", issuer: "BTK Akademi", year: "2025" },
+  { name: "Projelerle Arduino Programlama", issuer: "BTK Akademi", year: "2025" },
+  { name: "Temel Elektronik ve Robotiğe Giriş", issuer: "BTK Akademi", year: "2025" },
+  { name: "Tinkercad ile Arduino", issuer: "BTK Akademi", year: "2025" },
+  { name: "Tinkercad ile Tasarım Dünyasına Giriş", issuer: "BTK Akademi", year: "2025" },
+  { name: "Güvenlik Duvarına Giriş", issuer: "BTK Akademi", year: "2025" },
+  { name: "Temel Çizim Teknikleri", issuer: "BTK Akademi", year: "2025" },
+  { name: "Proje Yönetim Temelleri", issuer: "BTK Akademi", year: "2025" },
+  { name: "Ekip Kurma ve Yönetme", issuer: "BTK Akademi", year: "2025" },
+  { name: "Etkili İletişim Stratejileri", issuer: "BTK Akademi", year: "2025" },
+  { name: "Uygulamalı Canva", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "İkna Becerileri", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Girişimcilikte Sunum Teknikleri ve İletişim Yönetimi", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Genç Profesyoneller için Kariyeri Tehdit Eden Yaklaşımlar", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Pazar Araştırması ve Fiyatlandırma Stratejileri", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Müşteriyi Tanımak", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "LinkedIn'de Etkili Profil Oluşturma", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Oyun Pazarlama Temelleri", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Patent ve Faydalı Modellerin Korunması", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Tasarımların Korunması", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Markaların Korunması", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Coğrafi İşaretlerin Korunması", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "KGM Tarihçesi, Görev, Yetki ve Sorumlulukları", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Karayolu Projeleri Fizibilite Etütleri", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Karayolu Proje Çalışmaları", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Kamulaştırma Süreci", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Malzeme Ocakları Yönetim Süreci", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Karayolu Yapım Çalışmaları", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Yol Yapım, Bakım, Onarım Makine ve Ekipmanları", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Karayollarında Trafik Güvenliği Çalışmaları", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Devlet ve İl Yollarında Bakım ve İşletme Sürecine Giriş", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Özel ve Tarihi Köprüler", issuer: "BTK Akademi", year: "2025", cv: false },
+  { name: "Microsoft Word Temelleri", issuer: "BTK Akademi", year: "2024" },
+  { name: "Microsoft Excel Temelleri", issuer: "BTK Akademi", year: "2024" },
+  { name: "Microsoft PowerPoint", issuer: "BTK Akademi", year: "2024" },
+  { name: "İlk Yardım", issuer: "Çan Halk Eğitimi Merkezi (MEB)", year: "2025" },
+  { name: "Afet ve Acil Durum Farkındalık Eğitimi", issuer: "MEB Hayat Boyu Öğrenme", year: "2025" },
+  { name: "Bilgisayarda Hızlı Klavye Kullanımı", issuer: "MEB Hayat Boyu Öğrenme", year: "2025" },
+  { name: "Meslek Etiği", issuer: "MEB Hayat Boyu Öğrenme", year: "2026" },
+  { name: "Diksiyon Eğitimi", issuer: "MEB Hayat Boyu Öğrenme", year: "2026" },
+  { name: "Genel Sağlık Tarama ve Kontrol Farkındalık Eğitimi", issuer: "MEB Hayat Boyu Öğrenme", year: "2026", cv: false },
+  { name: "Ulaşım Sektöründe Mikro İşletmeler İçin Hijyen Eğitimi (İşimiz Temiz)", issuer: "MEB Hayat Boyu Öğrenme", year: "2026", cv: false },
+  { name: "Bilgisayar İşletmenliği", issuer: "GASMEK", year: "", status: "Devam ediyor" },
+  { name: "Klavye Teknikleri", issuer: "GASMEK", year: "", status: "Devam ediyor" },
+  { name: "Drone (İHA) Pilot Ehliyeti", issuer: "", year: "", status: "Devam ediyor" },
 ];
 
 // ---------------------------------------------------------------------

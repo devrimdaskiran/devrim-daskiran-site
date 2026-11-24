@@ -196,6 +196,15 @@ main:focus { outline: none; }
 .cert .skill-icon .icon { width: 18px; height: 18px; }
 .cert strong { display: block; font-size: .95rem; font-weight: 600; line-height: 1.35; }
 .cert span span { font-size: .85rem; color: var(--muted); }
+.cert span .level { display: block; width: fit-content; margin-top: 6px; }
+.cert-group { font-size: 1rem; font-weight: 600; margin: 28px 0 12px; color: var(--muted); letter-spacing: .02em; }
+.cert-more { margin-top: 12px; }
+.cert-more summary { cursor: pointer; color: var(--muted); font-size: .92rem; padding: 6px 0; }
+.cert-more summary:hover { color: inherit; }
+.cert-mini { list-style: none; columns: 2 280px; column-gap: 32px; margin: 8px 0 0; padding: 0; font-size: .9rem; }
+.cert-mini li { break-inside: avoid; padding: 5px 0; border-bottom: 1px solid var(--line, rgba(128,128,128,.18)); }
+.cert-mini li span { color: var(--muted); font-size: .85em; margin-left: 6px; }
+.cert-count { font-weight: 500; color: var(--muted); font-size: .85em; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* Skills */

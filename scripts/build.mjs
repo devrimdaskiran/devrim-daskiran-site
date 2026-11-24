@@ -307,10 +307,32 @@ function experienceBlock() {
 
 function certificatesBlock() {
   if (!certificates.length) return "";
-  return `<h3 class="sub-title sub-title-lg" id="sertifikalar">Kurslar ve sertifikalar</h3>
-  <ul class="cert-grid">${certificates
-    .map((c) => `<li class="card cert"><span class="skill-icon">${icons.file}</span><span><strong>${esc(c.name)}</strong>${has(c.year) ? `<span>${esc(c.year)}</span>` : ""}</span></li>`)
-    .join("")}</ul>`;
+  const groupOf = (c) => (has(c.status) ? "Devam eden eğitimler" : /MEB|Halk Eğitim/i.test(c.issuer || "") ? "MEB · e-Yaygın" : c.issuer || "Diğer");
+  const groups = [];
+  for (const c of certificates) {
+    const g = groupOf(c);
+    let grp = groups.find((x) => x.name === g);
+    if (!grp) groups.push((grp = { name: g, items: [] }));
+    grp.items.push(c);
+  }
+  const card = (c) =>
+    `<li class="card cert"><span class="skill-icon">${icons.file}</span><span><strong>${esc(c.name)}</strong>${
+      [c.status ? c.issuer : "", c.year].filter(has).length ? `<span>${esc([c.status ? c.issuer : "", c.year].filter(has).join(" · "))}</span>` : ""
+    }${has(c.status) ? `<span class="level lvl-1">${esc(c.status)}</span>` : ""}</span></li>`;
+  const done = certificates.filter((c) => !has(c.status)).length;
+  return `<h3 class="sub-title sub-title-lg" id="sertifikalar">Kurslar ve sertifikalar <span class="cert-count">(${done})</span></h3>
+  ${groups
+    .map((g) => {
+      const main = g.items.filter((c) => c.cv !== false);
+      const rest = g.items.filter((c) => c.cv === false);
+      const more = rest.length
+        ? `<details class="cert-more"><summary>+${rest.length} diğer sertifika</summary><ul class="cert-mini">${rest
+            .map((c) => `<li>${esc(c.name)}${has(c.year) ? ` <span>${esc(c.year)}</span>` : ""}</li>`)
+            .join("")}</ul></details>`
+        : "";
+      return `<h4 class="cert-group">${esc(g.name)} <span class="cert-count">${g.items.length}</span></h4><ul class="cert-grid">${main.map(card).join("")}</ul>${more}`;
+    })
+    .join("")}`;
 }
 
 function skillsSection() {
@@ -540,7 +562,14 @@ function cvPage() {
       </div>`
     )
     .join("");
-  const certs = certificates.map((c) => esc(c.name) + (has(c.year) ? ` (${esc(c.year)})` : "")).join(" · ");
+  const certs = certificates
+    .filter((c) => !has(c.status) && c.cv !== false)
+    .map((c) => esc(c.name) + (has(c.year) ? ` (${esc(c.year)})` : ""))
+    .join(" · ");
+  const certsOngoing = certificates
+    .filter((c) => has(c.status))
+    .map((c) => esc(c.name) + (has(c.issuer) ? ` (${esc(c.issuer)})` : ""))
+    .join(" · ");
   const extraLines = [
     ...(profile.languages || []).map((l) => `<li><strong>${esc(l.name)}:</strong> ${esc(l.level)}</li>`),
     has(profile.extra?.drivingLicense) && `<li><strong>Sürücü belgesi:</strong> ${esc(profile.extra.drivingLicense)}</li>`,
@@ -577,7 +606,7 @@ function cvPage() {
       ${exp ? `<section><h2>Staj Deneyimi</h2>${exp}</section>` : ""}
       <section><h2>Projeler</h2>${pr}</section>
       <section><h2>Eğitim</h2>${edu}</section>
-      ${certs ? `<section><h2>Kurslar ve Sertifikalar</h2><p>${certs}</p></section>` : ""}
+      ${certs ? `<section><h2>Kurslar ve Sertifikalar</h2><p>${certs}</p>${certsOngoing ? `<p><strong>Devam eden:</strong> ${certsOngoing}</p>` : ""}</section>` : ""}
       ${extraLines ? `<section><h2>Dil ve Ek Bilgiler</h2><ul class="cv-inline">${extraLines}</ul></section>` : ""}
     </article>
   </div>
