@@ -59,8 +59,33 @@ function projectArt(p, cls = "card-media") {
   if (has(p.image)) {
     return `<img class="${cls}" src="{{base}}${esc(p.image)}" alt="${esc(p.imageAlt || p.title + " proje görseli")}" loading="lazy" decoding="async" width="800" height="450">`;
   }
+  if (has(p.video?.youtube)) {
+    // Proje fotoğrafı yoksa YouTube videosunun kapak karesi kullanılır
+    return `<div class="${cls} video-thumb"><img src="https://i.ytimg.com/vi/${esc(p.video.youtube)}/hqdefault.jpg" alt="${esc(p.title)} videosundan bir kare" loading="lazy" decoding="async" width="480" height="360"><span class="play" aria-hidden="true"></span></div>`;
+  }
   const ic = icons[categoryIcon[p.category] || "code"];
   return `<div class="${cls} art art-${esc(p.category)}" role="img" aria-label="${esc(p.title)} için temsili görsel (proje fotoğrafı henüz eklenmedi)"><span class="art-icon">${ic}</span></div>`;
+}
+
+// YouTube videosu (gizlilik dostu youtube-nocookie alan adıyla)
+function videoEmbed(p) {
+  const v = p.video;
+  if (!has(v?.youtube)) return "";
+  return `<figure class="video">
+      <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}" title="${esc(v.title || p.title)}" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+      ${has(v.caption) ? `<figcaption>${esc(v.caption)} <a href="https://www.youtube.com/watch?v=${esc(v.youtube)}" target="_blank" rel="noopener">YouTube'da izle</a></figcaption>` : ""}
+    </figure>`;
+}
+
+// Fotoğraf galerisi: küçük görsele tıklanınca tam boyutu açılır
+function galleryBlock(p, base) {
+  if (!has(p.gallery)) return "";
+  return `<h2 class="sub-title">Fotoğraflar</h2>
+    <ul class="gallery">${p.gallery
+      .map(
+        (g) => `<li><figure><a href="${base}${esc(g.src)}" target="_blank" rel="noopener"><img src="${base}${esc(g.thumb || g.src)}" alt="${esc(g.alt)}" loading="lazy" decoding="async" width="600" height="450"></a>${has(g.caption) ? `<figcaption>${esc(g.caption)}</figcaption>` : ""}</figure></li>`
+      )
+      .join("")}</ul>`;
 }
 
 // ---------- ortak şablon ----------
@@ -485,8 +510,10 @@ function projectPage(p) {
     <div class="project-meta"><span class="cat">${esc(catName(p.category))}${has(p.context) ? " · " + esc(p.context) : ""}</span>${has(p.status) ? `<span class="badge">${esc(p.status)}</span>` : ""}</div>
     <h1>${esc(p.title)}</h1>
     <p class="lead">${esc(p.summary)}</p>
-    ${projectArt(p, "project-hero-media")}
+    ${has(p.image) || !has(p.video?.youtube) ? projectArt(p, "project-hero-media") : ""}
+    ${has(p.video?.youtube) ? videoEmbed(p) : ""}
     <div class="prose">${(p.details || []).map((d) => `<p>${esc(d)}</p>`).join("")}</div>
+    ${galleryBlock(p, base)}
     ${has(p.highlights) ? `<h2 class="sub-title">Öne çıkan özellikler</h2><ul class="tags">${p.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}
     ${has(p.technologies) ? `<h2 class="sub-title">Kullanılan teknolojiler</h2><ul class="tech">${p.technologies.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
     <div class="actions">
@@ -504,6 +531,7 @@ function projectPage(p) {
     description: `${p.summary} — ${profile.name} tarafından geliştirilen ${catName(p.category).toLowerCase()} projesi.`,
     body,
     type: "article",
+    ...(has(p.image) ? { ogImage: p.image } : {}),
     jsonld: [
       {
         "@context": "https://schema.org",

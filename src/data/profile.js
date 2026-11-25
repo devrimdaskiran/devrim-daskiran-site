@@ -398,16 +398,24 @@ export const projects = [
     context: "Üniversite Projesi",
     status: "Tamamlandı",
     summary: "ESP32, PCA9685 ve 8 adet MG90S servo motor ile Wi-Fi üzerinden kontrol edilen dört ayaklı robotik platform.",
-    technologies: ["ESP32", "PCA9685", "MG90S servo", "Wi-Fi"],
-    image: "",
-    imageAlt: "",
+    technologies: ["ESP32", "PCA9685", "MG90S servo", "Wi-Fi", "3D baskı", "2× 18650 Li-ion", "DC-DC dönüştürücü"],
+    image: "images/projeler/robotik-kopek.webp",
+    imageAlt: "3D baskı gövdeli, dört ayaklı ESP32 robot köpeğin yandan görünümü",
     github: "",
     demo: "",
     details: [
       "ESP32 tabanlı dört ayaklı bir robotik platform geliştirildi. Servo motorların kontrolü, hareket mekanizması ve mikrodenetleyici tabanlı elektronik sistem üzerinde çalışıldı.",
       "Bacak hareketleri, PCA9685 PWM sürücü kartı üzerinden yönetilen 8 adet MG90S servo motorla sağlanıyor; robot Wi-Fi üzerinden kontrol ediliyor.",
+      "Gövde ve bacaklar 3D baskıyla üretildi. Robot iki adet 18650 Li-ion pille besleniyor; servoların ihtiyaç duyduğu gerilim soğutuculu bir DC-DC düşürücü dönüştürücüyle sağlanıyor. Montajdan önce servolar breadboard üzerinde tek tek test edildi.",
     ],
-    highlights: [],
+    highlights: ["4 bacak · 8 servo", "Wi-Fi kontrol", "3D baskı gövde", "Pille çalışır"],
+    gallery: [
+      { src: "images/projeler/robotik-kopek/tamamlanmis.webp", thumb: "images/projeler/robotik-kopek/tamamlanmis-k.webp", alt: "Tamamlanmış robot köpeğin yandan görünümü", caption: "Tamamlanmış robot: 3D baskı gövde ve bacaklar, ayak eklemlerinde MG90S servolar." },
+      { src: "images/projeler/robotik-kopek/yandan-acili.webp", thumb: "images/projeler/robotik-kopek/yandan-acili-k.webp", alt: "Robot köpeğin açılı görünümü; üstte PCA9685 sürücü, önde pil yuvası", caption: "Gövde üzerinde PCA9685 sürücü ve servo kabloları; önde 2 adet 18650 Li-ion pil yuvası." },
+      { src: "images/projeler/robotik-kopek/ustten.webp", thumb: "images/projeler/robotik-kopek/ustten-k.webp", alt: "Robot köpeğin üstten görünümü: PCA9685 ve ESP32 gövdenin içinde", caption: "Üstten görünüm: 16 kanallı PCA9685 PWM sürücü ve ESP32; yanda DC-DC dönüştürücü ve pil yuvası." },
+      { src: "images/projeler/robotik-kopek/elektronik.webp", thumb: "images/projeler/robotik-kopek/elektronik-k.webp", alt: "Gövdedeki ESP32, PCA9685 ve soğutuculu DC-DC dönüştürücü", caption: "Elektronik yerleşim: ESP32, PCA9685 ve soğutuculu DC-DC düşürücü dönüştürücü gövdeye monte edilmiş." },
+      { src: "images/projeler/robotik-kopek/servo-testi.webp", thumb: "images/projeler/robotik-kopek/servo-testi-k.webp", alt: "Devrim Daşkıran montaj öncesinde MG90S servoları breadboard üzerinde test ediyor", caption: "Montaj öncesi test: 8 MG90S servo breadboard üzerinde bağlanıp multimetreyle kontrol ediliyor." },
+    ],
   },
   {
     slug: "akilli-gunes-takip-paneli",
@@ -426,6 +434,12 @@ export const projects = [
       "Proje TEKNOFEST başvurusunda kullanıldı.",
     ],
     highlights: [],
+    // YouTube videosu: yalnızca video kimliğini yaz (youtu.be/BURASI)
+    video: {
+      youtube: "coYgVs55yGs",
+      title: "Akıllı Güneş Paneli",
+      caption: "Projenin tanıtım videosu (Mustafa KARTAL'ın YouTube kanalında yayınlandı).",
+    },
   },
   {
     slug: "damla-damla-gol-olur",
