@@ -450,8 +450,8 @@ export const projects = [
     summary:
       "Küçük miktarlarda su toplayarak bir göl oluşturmayı hedefleyen, ilerlemeye dayalı bir oyun.",
     technologies: ["Godot 4", "GDScript"],
-    image: "",
-    imageAlt: "",
+    image: "images/projeler/damla-damla-gol-olur.webp",
+    imageAlt: "Damla Damla Göl Olur oyunundan ekran görüntüsü: göl dolduğunda çıkan \"Damla damla göl oldu!\" ekranı",
     github: "",
     demo: "",
     details: [
@@ -459,5 +459,8 @@ export const projects = [
       "Oyun ilerledikçe kaşık, bardak, kova ve el arabası gibi taşıma araçlarının yanı sıra boru sistemleri, hidrofor ve otomasyon sistemleri gibi geliştirmeler açılır. Projenin amacı, su toplama ve göl oluşturma sürecini adım adım büyüyen bir ilerleme deneyimine dönüştürmek.",
     ],
     highlights: ["Kaşık", "Bardak", "Kova", "El arabası", "Boru sistemleri", "Hidrofor", "Otomasyon sistemleri"],
+    gallery: [
+      { src: "images/projeler/damla-damla-gol-olur/gol-doldu.webp", thumb: "images/projeler/damla-damla-gol-olur/gol-doldu-k.webp", alt: "Oyunda göl tamamen dolduğunda çıkan Damla damla göl oldu ekranı", caption: "Göl tamamen dolduğunda: seviye 34, 12.000 L/sn otomasyon; arkada su çarkları, şelale ve boru hatları." },
+    ],
   },
 ];
