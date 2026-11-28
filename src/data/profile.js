@@ -461,6 +461,8 @@ export const projects = [
     highlights: ["Kaşık", "Bardak", "Kova", "El arabası", "Boru sistemleri", "Hidrofor", "Otomasyon sistemleri"],
     gallery: [
       { src: "images/projeler/damla-damla-gol-olur/gol-doldu.webp", thumb: "images/projeler/damla-damla-gol-olur/gol-doldu-k.webp", alt: "Oyunda göl tamamen dolduğunda çıkan Damla damla göl oldu ekranı", caption: "Göl tamamen dolduğunda: seviye 34, 12.000 L/sn otomasyon; arkada su çarkları, şelale ve boru hatları." },
+      { src: "images/projeler/damla-damla-gol-olur/seviye-150.webp", thumb: "images/projeler/damla-damla-gol-olur/seviye-150-k.webp", alt: "Oyunda en yüksek seviye olan 150'de Hazar Gölü haritası, zincirli kovalı bant ve su çarkları", caption: "Son seviye (150): Hazar Gölü haritasında 5 milyar litrelik göl, 17.400 L/sn otomasyon; zincirli kovalı bant, su çarkları, şelale ve boru hatları." },
+      { src: "images/projeler/damla-damla-gol-olur/su-dukkani.webp", thumb: "images/projeler/damla-damla-gol-olur/su-dukkani-k.webp", alt: "Oyundaki Su Dükkânı ekranı: el ekipmanları, taşıma, kanallar, pompa ve otomasyon kategorileri", caption: "Su Dükkânı: önce teknoloji ağacından açılır, sonra satın alınır ve yükseltilir. Büyük kova, bidon, su fıçısı gibi kaplar; pompa, boru ve otomasyon kategorileri." },
     ],
   },
 ];
